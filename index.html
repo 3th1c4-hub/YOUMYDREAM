@@ -30,7 +30,6 @@
 
     #intro-screen { position: fixed; top:0; left:0; width:100%; height:100%; background:#020203; display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:9999; cursor:pointer; transition:opacity 1.5s; }
     
-    /* 인트로 텍스트 & 깜빡이는 커서 효과 (2번) */
     .intro-text { font-size:1.4rem; color:var(--voyager-gold); text-align:center; line-height:2; text-shadow:var(--voyager-glow); white-space:pre-wrap; margin-bottom: 20px;}
     .type-cursor { display:inline-block; width:10px; height:20px; background:var(--voyager-gold); vertical-align:middle; margin-left:4px; animation:blink 1s infinite; }
     @keyframes blink { 0%, 100% {opacity:1;} 50% {opacity:0;} }
@@ -121,7 +120,6 @@
     #w-content { border-radius:0 0 4px 4px; min-height:400px; height:auto; padding:30px; background:rgba(0,0,0,0.3); border:var(--border-line); color:#fff; outline:none; overflow-y:auto; line-height:1.8; font-size:1.05rem; }
     #w-content:focus { border-color:var(--voyager-gold); background:rgba(0,0,0,0.5); }
     
-    /* 📌 4번: 접은글 스타일 강화 */
     .rich-details { background: rgba(0,0,0,0.4); border: 1px solid rgba(var(--accent-rgb), 0.3); border-radius: 6px; padding: 12px 16px; margin: 15px 0; transition: 0.3s; }
     .rich-details[open] { background: rgba(var(--accent-rgb), 0.05); border-color: var(--voyager-gold); }
     .rich-details summary { font-weight: 600; color: var(--voyager-gold); cursor: pointer; list-style: none; outline: none; margin: -12px -16px; padding: 12px 16px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between; }
@@ -130,7 +128,6 @@
     .rich-details[open] summary::after { transform: rotate(0); color: var(--voyager-gold); }
     .details-content { margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(var(--accent-rgb), 0.3); color: var(--moon-light); font-size: 0.95rem; line-height: 1.8; }
 
-    /* 📌 5번: 인용구(blockquote) 기능 추가 */
     #w-content blockquote, #v-content blockquote {
         border-left: 4px solid var(--voyager-gold);
         background: rgba(var(--accent-rgb), 0.08);
@@ -173,7 +170,6 @@
     .modal-bg { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; z-index:10000; backdrop-filter:blur(5px); }
     .modal { background:var(--bg-panel); padding:40px; border-radius:8px; width:650px; border:var(--border-gold); max-height:90vh; display:flex; flex-direction:column;}
     
-    /* 설정 모달 라벨 스타일 수정 */
     .modal-label { color:var(--voyager-gold); font-size:0.9rem; font-weight:600; display:block; margin-bottom:8px; margin-top:20px; }
     .modal-label:first-child { margin-top: 0; }
     
@@ -269,6 +265,14 @@
                 <div class="editor-toolbar">
                     <button onclick="formatDoc('bold')" style="font-weight:bold;">B</button>
                     <button onclick="formatDoc('italic')" style="font-style:italic;">I</button>
+                    
+                    <span class="divider">|</span>
+                    <button onclick="formatDoc('justifyLeft')" title="좌측 정렬">좌</button>
+                    <button onclick="formatDoc('justifyCenter')" title="중앙 정렬">중</button>
+                    <button onclick="formatDoc('justifyRight')" title="우측 정렬">우</button>
+                    <button onclick="formatDoc('justifyFull')" title="양끝 맞춤">양끝</button>
+                    <span class="divider">|</span>
+
                     <select class="editor-select" onchange="formatDoc('fontSize', this.value); this.selectedIndex=0;">
                         <option value="">글자 크기</option>
                         <option value="1">1</option>
@@ -349,8 +353,8 @@
 <div id="tableModal" class="modal-bg">
     <div class="modal" style="width:350px;">
         <h3 class="eng-font" style="color:var(--voyager-gold); margin-bottom:20px;">TABLE SETTINGS</h3>
-        <div style="margin-bottom:15px; display:flex; justify-content:space-between;"><label>행(Row)</label><input type="number" id="t-rows" class="input-control" style="width:100px;" value="3"></div>
-        <div style="margin-bottom:15px; display:flex; justify-content:space-between;"><label>열(Column)</label><input type="number" id="t-cols" class="input-control" style="width:100px;" value="3"></div>
+        <div id="t-rows-wrap" style="margin-bottom:15px; display:flex; justify-content:space-between;"><label>행(Row)</label><input type="number" id="t-rows" class="input-control" style="width:100px;" value="3"></div>
+        <div id="t-cols-wrap" style="margin-bottom:15px; display:flex; justify-content:space-between;"><label>열(Column)</label><input type="number" id="t-cols" class="input-control" style="width:100px;" value="3"></div>
         <div style="margin-bottom:15px; display:flex; justify-content:space-between;"><label>너비(%)</label><input type="number" id="t-width" class="input-control" style="width:100px;" value="100"></div>
         <div style="margin-bottom:25px; display:flex; justify-content:space-between;"><label>배경색</label><div><input type="color" id="t-bg" value="#000000"><input type="checkbox" id="t-bg-transparent" checked>투명</div></div>
         <div style="display:flex; gap:10px; justify-content:flex-end;"><button class="btn btn-solid" onclick="applyTable()">적용</button><button class="btn" onclick="closeModal('tableModal')">취소</button></div>
@@ -433,8 +437,6 @@
             if (!isFirstLoad) { 
                 db.categories.filter(c => c.parentId == null).forEach(c => expandedCats.add(c.id)); 
                 isFirstLoad = true; 
-                
-                // 📌 1, 2번: 인트로 타이핑 효과 실행
                 let introText = db.introMain || "ACCESS TERMINAL";
                 typeIntroText(introText);
             }
@@ -443,7 +445,6 @@
         });
     }
 
-    // 인트로 타이핑 함수
     function typeIntroText(text) {
         const display = $('intro-text-display');
         display.innerHTML = '';
@@ -458,7 +459,7 @@
             } else {
                 clearInterval(timer);
             }
-        }, 60); // 타이핑 속도 조절
+        }, 60);
     }
 
     function saveDB() { database.ref('voyagerArchive').set(db); }
@@ -601,7 +602,6 @@
         formatDoc('insertHTML', html);
     }
 
-    // 📌 3번: 이미지에 링크 적용 로직 수정
     window.insertLink = function() { 
         saveSelection();
         const url = prompt("연결할 웹 주소(URL)를 입력하세요.\n(이미지에 링크를 걸려면 에디터에서 이미지를 클릭한 뒤 이 버튼을 누르세요.)", "https://"); 
@@ -612,7 +612,6 @@
         if (sel.rangeCount === 0) return;
         let range = sel.getRangeAt(0);
 
-        // 이미지 노드가 선택되어 있는지 확인하는 로직 강화
         let isImgOnly = false;
         let imgElem = null;
 
@@ -627,7 +626,6 @@
             imgElem = sel.anchorNode;
         }
 
-        // 이미지라면 a태그로 직접 감싸기
         if (isImgOnly && imgElem) {
             let a = document.createElement('a');
             a.href = url;
@@ -635,7 +633,6 @@
             imgElem.parentNode.insertBefore(a, imgElem);
             a.appendChild(imgElem);
         } else {
-            // 일반 텍스트 드래그 시
             formatDoc('createLink', url);
         }
     }
@@ -665,7 +662,6 @@
         }
     }
 
-    // 📌 4번: 접은글 템플릿 수정
     window.insertToggle = function() { 
         const title = prompt("접은글 제목"); 
         if(title) {
@@ -673,7 +669,6 @@
         } 
     }
     
-    // 📌 5번: 인용구 삽입 기능
     window.insertQuote = function() {
         formatDoc('formatBlock', 'blockquote');
     }
@@ -794,10 +789,26 @@
     window.deletePost = function() { if(confirm('영구 삭제하시겠습니까?')) { db.posts = db.posts.filter(p => p.id != currentPostId); saveDB(); openCategory(currentCatId||db.categories[0].id); } }
 
     let draggedNoticeId = null;
-    window.onDragStart = function(e, id) { draggedNoticeId = id; e.dataTransfer.effectAllowed = 'move'; setTimeout(() => e.target.style.opacity = '0.5', 0); }
-    window.onDragEnd = function(e) { e.target.style.opacity = '1'; draggedNoticeId = null; }
-    window.onDragOver = function(e) { e.preventDefault(); }
-    window.onDrop = function(e, targetId) { e.preventDefault(); if(!draggedNoticeId || draggedNoticeId == targetId) return; const fromIdx = db.noticeOrder.indexOf(draggedNoticeId), toIdx = db.noticeOrder.indexOf(targetId); if(fromIdx > -1 && toIdx > -1) { db.noticeOrder.splice(fromIdx, 1); db.noticeOrder.splice(toIdx, 0, draggedNoticeId); saveDB(); renderHomeShortcuts(); } }
+    
+    // 권한 검사 (2번)
+    window.onDragStart = function(e, id) { 
+        if(!isAuthed) { e.preventDefault(); return; }
+        draggedNoticeId = id; e.dataTransfer.effectAllowed = 'move'; setTimeout(() => e.target.style.opacity = '0.5', 0); 
+    }
+    window.onDragEnd = function(e) { 
+        if(!isAuthed) return;
+        e.target.style.opacity = '1'; draggedNoticeId = null; 
+    }
+    window.onDragOver = function(e) { if(isAuthed) e.preventDefault(); }
+    window.onDrop = function(e, targetId) { 
+        if(!isAuthed) return;
+        e.preventDefault(); 
+        if(!draggedNoticeId || draggedNoticeId == targetId) return; 
+        const fromIdx = db.noticeOrder.indexOf(draggedNoticeId), toIdx = db.noticeOrder.indexOf(targetId); 
+        if(fromIdx > -1 && toIdx > -1) { 
+            db.noticeOrder.splice(fromIdx, 1); db.noticeOrder.splice(toIdx, 0, draggedNoticeId); saveDB(); renderHomeShortcuts(); 
+        } 
+    }
     
     function renderHomeShortcuts() {
         const wrap = $('home-shortcuts-wrap'), container = $('home-shortcuts'); 
@@ -811,8 +822,9 @@
         
         if(!shortcuts.length) { wrap.style.display = 'none'; return; } wrap.style.display = 'block';
         
+        // 로그인 상태에 따라 draggable 속성 조절
         container.innerHTML = shortcuts.map(p => `
-            <div class="shortcut-card" draggable="true" ondragstart="onDragStart(event, ${p.id})" ondragend="onDragEnd(event)" ondragover="onDragOver(event)" ondrop="onDrop(event, ${p.id})" onclick="viewPost(${p.id})">
+            <div class="shortcut-card" draggable="${isAuthed ? 'true' : 'false'}" ondragstart="onDragStart(event, ${p.id})" ondragend="onDragEnd(event)" ondragover="onDragOver(event)" ondrop="onDrop(event, ${p.id})" onclick="viewPost(${p.id})">
                 ${p.imgUrl ? `<img src="${p.imgUrl}" class="shortcut-img">` : `<div class="shortcut-img"></div>`}
                 <div class="shortcut-info">
                     <div class="shortcut-cat">${(db.categories.find(c=>c.id==p.catId)||{}).name||''}</div>
