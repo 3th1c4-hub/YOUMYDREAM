@@ -34,10 +34,11 @@
 
     #app { display:none; width:100%; height:100%; flex-direction:row; }
     
-    /* 사이드바 애니메이션 추가 */
+    /* 사이드바 */
     .sidebar { width:300px; flex-shrink: 0; background:var(--bg-panel); border-right:var(--border-line); padding:40px 25px; display:flex; flex-direction:column; backdrop-filter:blur(15px); overflow-y:auto; z-index:10; transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     .logo { font-size:2rem; color:var(--voyager-gold); text-align:center; cursor:pointer; margin-bottom:25px; text-shadow:var(--voyager-glow); line-height:1.2; }
     
+    /* 카테고리 토글 스타일 */
     .nav-item-wrapper { margin-bottom:2px; }
     .nav-item { padding:8px 15px; cursor:pointer; color:var(--moon-light); font-size:0.95rem; border-radius:4px; display:flex; align-items:center; transition:0.2s;}
     .nav-item:hover { background:rgba(var(--accent-rgb), 0.1); color:var(--voyager-gold); }
@@ -48,7 +49,7 @@
     .bgm-widget { background:rgba(0,0,0,0.3); border:var(--border-line); border-radius:4px; padding:10px; margin-bottom:25px; text-align:center; display:none; }
     .bgm-title { font-size:0.75rem; color:var(--moon-dim); margin-bottom:8px; letter-spacing:1px; }
 
-    /* 메뉴 토글 버튼 & 메인 컨텐츠 영역 */
+    /* 콘텐츠 영역 */
     .content-area { flex:1; padding:60px 70px; overflow-y:auto; position: relative; transition: width 0.3s ease; }
     .sidebar-toggle-btn { position: absolute; top: 15px; left: 15px; z-index: 50; background: rgba(0,0,0,0.5); border: 1px solid rgba(var(--accent-rgb), 0.3); color: var(--voyager-gold); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 1.1rem; transition: 0.2s; }
     .sidebar-toggle-btn:hover { background: rgba(var(--accent-rgb), 0.2); }
@@ -66,8 +67,10 @@
     #home-maintitle { font-size: 2.2rem; color: #fff; margin-bottom: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; z-index: 2; }
     #home-desc-display { font-size: 0.95rem; color: var(--moon-light); line-height: 1.8; white-space: pre-wrap; z-index: 2; padding-left: 15px; border-left: 3px solid rgba(var(--accent-rgb), 0.6); }
 
+    /* 대문 숏컷 (가로 정렬 수정) */
     .home-shortcuts-wrap { margin-top: 60px; width: 100%; border-top: 1px solid rgba(132,146,166,0.2); padding-top: 40px; display:none; }
     .home-shortcuts-title { font-size: 1.1rem; color: var(--voyager-gold); margin-bottom: 25px; text-align: center; font-weight: 600; letter-spacing: 2px; }
+    .home-shortcuts { display: flex; flex-direction: row; gap: 20px; justify-content: center; flex-wrap: wrap; }
     .shortcut-card { width: 180px; height: 260px; border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; background: rgba(0,0,0,0.6); }
     .shortcut-card:hover { transform: translateY(-5px); border-color: var(--voyager-gold); box-shadow: var(--voyager-glow); }
     .shortcut-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; pointer-events: none;}
@@ -75,6 +78,7 @@
     .shortcut-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px 15px 15px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); pointer-events: none; }
     .shortcut-title { color: #fff; font-size: 1.05rem; font-weight: 600; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+    /* 리스트 UI */
     .view-toggles { display: flex; gap: 5px; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 4px; border: var(--border-line); }
     .view-btn { padding: 6px 12px; border: none; background: transparent; border-radius: 2px; color: var(--moon-dim); cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: 0.2s; }
     .view-btn.active { background: rgba(var(--accent-rgb), 0.2); color: var(--voyager-gold); }
@@ -85,7 +89,10 @@
     .post-card { background:rgba(15,17,21,0.6); border:var(--border-line); border-radius:6px; cursor:pointer; transition:0.3s; position:relative; overflow:hidden; }
     .post-card:hover { border-color:var(--voyager-gold); transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.5); background:rgba(20,22,28,0.8); }
     .post-card.notice { border-color:var(--voyager-gold); background:rgba(var(--accent-rgb),0.05); }
-    .notice-badge { font-size:0.75rem; color:var(--bg-deep); background:var(--voyager-gold); padding:2px 6px; border-radius:2px; font-weight:600; display:inline-block; margin-bottom:6px; }
+    
+    /* 메인 트랙 배지 길이 오류 수정 (fit-content) */
+    .notice-badge { font-size:0.75rem; color:var(--bg-deep); background:var(--voyager-gold); padding:2px 8px; border-radius:2px; font-weight:600; display:inline-block; margin-bottom:6px; width: fit-content; }
+    
     .post-thumb { object-fit:cover; border:1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.4); }
 
     .view-list .post-card { padding:20px 25px; display:flex; align-items:center; gap:20px; }
@@ -104,6 +111,7 @@
     .color-picker-wrap { display:flex; align-items:center; gap:6px; font-size:0.8rem; color:var(--moon-light); background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:2px; border:1px solid rgba(255,255,255,0.1); }
     .color-picker-wrap input[type="color"] { width:20px; height:20px; border:none; cursor:pointer; background:transparent; padding:0; }
     .editor-select { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:var(--moon-light); padding:5px 8px; border-radius:2px; font-size:0.85rem; outline:none; }
+    .editor-select option { background: #121418; color: #fff; }
 
     #w-content { border-radius:0 0 4px 4px; min-height:400px; height:auto; padding:30px; background:rgba(0,0,0,0.3); border:var(--border-line); color:#fff; outline:none; overflow-y:auto; line-height:1.8; font-size:1.05rem; }
     #w-content:focus { border-color:var(--voyager-gold); background:rgba(0,0,0,0.5); }
@@ -131,7 +139,7 @@
     /* 공용 UI */
     .input-control { width:100%; padding:12px; background:rgba(0,0,0,0.4); border:var(--border-line); color:#fff; border-radius:4px; margin-bottom:15px; outline:none; }
     .input-control:focus { border-color:var(--voyager-gold); background:rgba(0,0,0,0.6);}
-    .btn { padding:10px 20px; border:1px solid var(--voyager-gold); color:var(--voyager-gold); background:none; cursor:pointer; border-radius:4px; transition:0.2s; }
+    .btn { padding:10px 20px; border:1px solid var(--voyager-gold); color:var(--voyager-gold); background:none; cursor:pointer; border-radius:4px; transition:0.2s; font-weight: 600; }
     .btn:hover { background:var(--voyager-gold); color:#000; box-shadow:var(--voyager-glow); }
     .btn-solid { background:var(--voyager-gold); color:#000; }
     .btn-text { background: transparent; border: none; color: var(--moon-dim); cursor: pointer; padding: 4px 6px; font-size: 0.95rem; transition: 0.2s; }
@@ -222,7 +230,14 @@
                     <button onclick="formatDoc('bold')" style="font-weight:bold;">B</button>
                     <button onclick="formatDoc('italic')" style="font-style:italic;">I</button>
                     <select class="editor-select" onchange="formatDoc('fontSize', this.value); this.selectedIndex=0;">
-                        <option value="">크기</option><option value="3">보통</option><option value="5">크게</option><option value="7">매우크게</option>
+                        <option value="">글자 크기</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
                     </select>
                     <span class="divider">|</span>
                     <div class="color-picker-wrap">글자 <input type="color" onchange="formatDoc('foreColor', this.value)"></div>
@@ -254,6 +269,8 @@
                 <button class="btn" onclick="goPage('board')">← 목록으로</button>
                 <div id="admin-actions" style="display:none;">
                     <button class="btn" id="btn-notice" style="margin-right:5px;" onclick="toggleNotice()">★ 메인 트랙</button>
+                    <button class="btn" id="btn-shortcut" style="margin-right:5px;" onclick="toggleShortcut()">📌 대문 등록</button>
+                    <span class="divider" style="color:var(--moon-dim); margin:0 10px;">|</span>
                     <button class="btn" style="margin-right:5px;" onclick="handleAuthAction('edit')">수정</button>
                     <button class="btn" style="border-color:#d9534f; color:#d9534f;" onclick="handleAuthAction('delete')">삭제</button>
                 </div>
@@ -303,16 +320,22 @@
     <div class="modal">
         <h3 class="eng-font" style="color:var(--voyager-gold); margin-bottom:20px; border-bottom:1px dashed rgba(255,255,255,0.1); padding-bottom:15px;">SYSTEM SETTINGS</h3>
         <div style="overflow-y:auto; flex:1; padding-right:10px;">
-            <label>배너 이미지</label><input type="text" id="s-home-banner-img" class="input-control">
-            <label>아르테미스 폰트 URL</label><input type="text" id="s-font-url" class="input-control">
-            <label>BGM 유튜브 ID</label><input type="text" id="s-bgm-id" class="input-control">
-            <label>비밀번호 / 인트로 / 제목 / 사이트 설명</label>
+            <label>★ 대문 배너 이미지</label><input type="text" id="s-home-banner-img" class="input-control">
+            <label>★ 아르테미스 폰트 URL</label><input type="text" id="s-font-url" class="input-control">
+            
+            <label>1. 테마 컬러 관리</label>
+            <div style="display:flex; gap:10px; margin-bottom:10px;"><select id="s-theme-select" class="input-control" style="flex:1;"></select><button class="btn" onclick="editThemeName()">수정</button><button class="btn" style="color:#d9534f;" onclick="deleteTheme()">삭제</button></div>
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(0,0,0,0.3); padding:10px; border-radius:4px; margin-bottom:25px;"><input type="color" id="s-new-theme-color"><input type="text" id="s-new-theme-name" class="input-control" style="flex:1; margin-bottom:0;"><button class="btn btn-solid" onclick="addTheme()">추가</button></div>
+
+            <label>2. 사이드바 BGM 유튜브 ID</label><input type="text" id="s-bgm-id" class="input-control" style="margin-bottom:25px;">
+            
+            <label>3. 시스템 정보</label>
             <input type="password" id="s-new-pw" class="input-control" placeholder="새 마스터 비밀번호">
             <input type="text" id="s-intro-main" class="input-control" placeholder="인트로 문구">
             <div style="display:flex; gap:10px;"><input type="text" id="s-site-name" class="input-control" placeholder="로고명"><input type="text" id="s-home-title" class="input-control" placeholder="대문제목"></div>
-            <textarea id="s-home-desc" class="input-control" style="height:60px;" placeholder="사이트 설명"></textarea>
+            <textarea id="s-home-desc" class="input-control" style="height:60px; margin-bottom:25px;" placeholder="사이트 설명"></textarea>
             
-            <label>카테고리 관리 (순서 이동 및 수정/삭제)</label>
+            <label>4. 카테고리 관리</label>
             <div style="display:flex; gap:10px; margin-bottom:15px;"><select id="s-parent-cat" class="input-control" style="flex:1;"></select><input type="text" id="s-new-cat" class="input-control" style="flex:2;" placeholder="새 이름"><button class="btn btn-solid" onclick="addCategory()">추가</button></div>
             <div id="cat-manage-list" style="background:rgba(0,0,0,0.3); border:var(--border-line); border-radius:4px; padding:15px;"></div>
         </div>
@@ -358,22 +381,30 @@
                 db = { ...defaultDb, ...data };
                 if(data.categories) db.categories = Object.values(data.categories);
                 if(data.posts) db.posts = Object.values(data.posts);
+                if(data.themes) db.themes = Object.values(data.themes); // 테마 복구
                 if(data.noticeOrder) db.noticeOrder = Object.values(data.noticeOrder);
             }
             if (!isFirstLoad) { db.categories.filter(c => c.parentId == null).forEach(c => expandedCats.add(c.id)); isFirstLoad = true; }
             applyUI(); renderNav();
-            if($('settingModal').style.display === 'flex') updateCatMgmt();
+            if($('settingModal').style.display === 'flex') { updateCatMgmt(); updateThemeMgmt(); }
         });
     }
 
     function saveDB() { database.ref('voyagerArchive').set(db); }
 
     function applyUI() {
+        // 테마 컬러 적용 로직
+        let currentTheme = db.themes.find(t => t.id === db.activeThemeId) || db.themes[0];
+        document.documentElement.style.setProperty('--accent-rgb', hexToRgb(currentTheme.hex));
+
         const fontStyle = $('dynamic-font');
         if(db.fontUrl) {
             fontStyle.innerHTML = `@font-face { font-family: 'ArtemisWeb'; src: url('${db.fontUrl.trim()}'); }`;
             document.documentElement.style.setProperty('--eng-font-family', "'ArtemisWeb', 'Pretendard', serif");
+        } else {
+            document.documentElement.style.setProperty('--eng-font-family', "'ArtemisLocal', 'Playfair Display', 'Pretendard', serif");
         }
+
         $('sidebar-logo').innerHTML = (db.siteName||"").replace(/\n/g, '<br>');
         $('home-maintitle').innerText = db.homeTitle; $('home-desc-display').innerText = db.homeDesc;
         if(db.homeBannerImg) { $('home-banner-img').src = db.homeBannerImg; $('home-banner-img').style.display='block'; }
@@ -382,7 +413,6 @@
         renderHomeShortcuts(); setViewMode(db.viewMode, false);
     }
 
-    /* 사이드바 애니메이션 토글 (9번) */
     window.toggleSidebar = function() {
         const sidebar = document.querySelector('.sidebar');
         sidebarOpen = !sidebarOpen;
@@ -398,11 +428,29 @@
     function saveSelection() { const sel = window.getSelection(); if(sel.getRangeAt && sel.rangeCount) savedRange = sel.getRangeAt(0); }
     function restoreSelection() { if(savedRange) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(savedRange); } }
 
+    /* 카테고리 토글(▶) 기능 부활 (2번) */
+    window.toggleCat = function(e, id) { 
+        e.stopPropagation(); 
+        expandedCats.has(id) ? expandedCats.delete(id) : expandedCats.add(id); 
+        renderNav(); 
+    }
+
     function buildNav(parentId = null, level = 0) {
-        return db.categories.filter(c => c.parentId == parentId).map(c => `
-            <div class="nav-item-wrapper" style="padding-left:${level*15}px;">
-                <div class="nav-item ${c.id==currentCatId && $('page-board').classList.contains('active') ?'active':''}" onclick="openCategory(${c.id})">${c.name}</div>
-            </div>`).join('') + db.categories.filter(c => c.parentId == parentId).map(c => buildNav(c.id, level + 1)).join('');
+        let html = '';
+        db.categories.filter(c => c.parentId == parentId).forEach(c => {
+            const hasChild = db.categories.some(s => s.parentId == c.id);
+            const isExp = expandedCats.has(c.id);
+            const isAct = c.id == currentCatId && $('page-board').classList.contains('active');
+            
+            html += `<div class="nav-item-wrapper" style="padding-left:${level*15}px;">
+                        <div class="nav-item ${isAct?'active':''}" onclick="openCategory(${c.id})">
+                            ${hasChild ? `<div class="nav-toggle ${isExp?'open':''}" onclick="toggleCat(event, ${c.id})">▶</div>` : `<div style="width:20px;"></div>`}
+                            ${c.name}
+                        </div>
+                    </div>`;
+            if(hasChild && isExp) html += buildNav(c.id, level + 1);
+        });
+        return html;
     }
     function renderNav() { $('category-list').innerHTML = buildNav(); }
 
@@ -413,7 +461,6 @@
         else { container.className = 'view-list'; btnList.classList.add('active'); btnGallery.classList.remove('active'); }
     }
 
-    /* 포스트 렌더링 통합 (검색 및 카테고리 공용) */
     window.renderPostList = function(posts) {
         if(!posts.length) { $('post-list-container').innerHTML = '<div style="color:var(--moon-dim); text-align:center; padding:40px;">데이터가 없습니다.</div>'; return; }
         $('post-list-container').innerHTML = posts.map(p => {
@@ -424,14 +471,13 @@
     }
 
     window.openCategory = function(id) {
-        currentCatId = id; goPage('board');
+        currentCatId = id; expandedCats.add(id); goPage('board');
         const cat = db.categories.find(c=>c.id==id);
         $('board-title').innerText = cat ? cat.name : 'Unknown';
         let posts = db.posts.filter(p => p.catId == id).sort((a,b) => b.isNotice - a.isNotice || b.id - a.id);
         renderPostList(posts);
     }
 
-    /* 검색 기능 (10번) */
     window.searchPosts = function(e) {
         if(e.key === 'Enter') {
             const q = e.target.value.toLowerCase().trim();
@@ -445,7 +491,6 @@
 
     window.formatDoc = function(cmd, value=null) { document.execCommand(cmd, false, value); $('w-content').focus(); }
     
-    /* 1, 4, 6번 기능: 이미지 URL 및 주석(Caption) 입력받아 삽입 */
     window.insertImageWithCaption = function() {
         saveSelection();
         const url = prompt("삽입할 이미지 주소(URL)를 입력하세요.");
@@ -461,13 +506,11 @@
         formatDoc('insertHTML', html);
     }
 
-    /* 2번 기능 안내 강화 */
     window.insertLink = function() { 
-        const url = prompt("연결할 웹 주소(URL)를 입력하세요.\n(※ 이미지에 링크를 걸려면 에디터 안의 이미지를 클릭(파란 테두리)한 뒤 이 버튼을 누르세요.)", "https://"); 
+        const url = prompt("연결할 웹 주소(URL)를 입력하세요.\n(※ 이미지에 링크를 걸려면 에디터 안의 이미지를 클릭한 뒤 이 버튼을 누르세요.)", "https://"); 
         if(url && url !== "https://") formatDoc('createLink', url); 
     }
 
-    /* 3번 기능: 내부 페이지 링크 삽입 */
     window.openPostLinkModal = function() {
         saveSelection();
         $('link-post-select').innerHTML = db.posts.map(p => `<option value="${p.id}">${p.title}</option>`).join('');
@@ -483,7 +526,6 @@
         closeModal('postLinkModal');
     }
 
-    /* 7번 기능: HTML 소스 에디터 전환 */
     window.toggleHTMLMode = function() {
         htmlMode = !htmlMode;
         const rich = $('w-content'), raw = $('w-content-html');
@@ -531,7 +573,7 @@
 
     window.goGuestWrite = function() { goWrite(null, parseInt(db.guestbookCatId)); }
     window.goWrite = function(postId = null, guestCatId = null) { 
-        if(htmlMode) toggleHTMLMode(); // 작성창 진입 시 일반 모드로 초기화
+        if(htmlMode) toggleHTMLMode();
         goPage('write'); editingPostId = postId;
         if(postId) { 
             const p = db.posts.find(x => x.id == postId); 
@@ -545,17 +587,20 @@
     }
 
     window.savePost = function() {
-        if(htmlMode) toggleHTMLMode(); // 저장 전 HTML을 리치 텍스트로 동기화
+        if(htmlMode) toggleHTMLMode();
         const catId = parseInt($('w-category').value), title = $('w-title').value.trim(), author = $('w-author').value.trim();
         if(!title || (!isAuthed && !author)) return alert('제목과 작성자를 입력하세요.');
         const postData = { 
             id: editingPostId || Date.now(), catId, title, author, imgUrl: $('w-img-url').value, 
-            content: $('w-content').innerHTML, date: new Date().toLocaleDateString(), isNotice: false,
-            postPw: $('w-post-pw').value.trim() // 5번: 비밀번호 저장
+            content: $('w-content').innerHTML, date: new Date().toLocaleDateString(), 
+            isNotice: false, showOnHome: false, // 6번: 초기값 세팅
+            postPw: $('w-post-pw').value.trim() 
         };
         if(editingPostId) { 
             const idx = db.posts.findIndex(p => p.id == editingPostId); 
-            postData.isNotice = db.posts[idx].isNotice; db.posts[idx] = postData; 
+            postData.isNotice = db.posts[idx].isNotice; 
+            postData.showOnHome = db.posts[idx].showOnHome || false; 
+            db.posts[idx] = postData; 
         } else { db.posts.push(postData); }
         saveDB(); openCategory(catId);
     }
@@ -563,7 +608,6 @@
     window.viewPost = function(id) {
         const p = db.posts.find(x => x.id == id); if(!p) return;
         
-        // 5번: 글 비밀번호 확인 로직 (관리자가 아니면 확인)
         if(!isAuthed && p.postPw) {
             const inputPw = prompt("이 글은 암호화되어 있습니다. 열람 비밀번호를 입력하세요.");
             if(inputPw !== p.postPw) return alert("비밀번호가 일치하지 않습니다.");
@@ -572,14 +616,24 @@
         currentPostId = id; const c = db.categories.find(x => x.id == p.catId);
         $('v-title').innerText = p.title; $('v-info').innerHTML = `${c?c.name:''} | ${p.author ? '<b>'+p.author+'</b> | ' : ''}${p.date}`; 
         $('v-content').innerHTML = p.content; if(p.imgUrl) { $('v-image').src = p.imgUrl; $('v-image').style.display = 'block'; } else $('v-image').style.display = 'none';
-        if(isAuthed) { $('btn-notice').innerText = p.isNotice ? "☆ 메인 해제" : "★ 메인 트랙 지정"; }
+        
+        // 6번: 메인 트랙, 대문 등록 버튼 상태 업데이트
+        if(isAuthed) { 
+            $('btn-notice').innerText = p.isNotice ? "☆ 메인 해제" : "★ 메인 트랙 지정"; 
+            $('btn-notice').style.color = p.isNotice ? "var(--moon-dim)" : "var(--voyager-gold)";
+            $('btn-shortcut').innerText = p.showOnHome ? "📌 대문 내리기" : "📌 대문 등록"; 
+            $('btn-shortcut').style.color = p.showOnHome ? "var(--moon-dim)" : "var(--voyager-gold)";
+        }
         goPage('view');
     }
 
+    // 6번: 토글 기능 분리
     window.toggleNotice = function() { const p = db.posts.find(x=>x.id==currentPostId); p.isNotice = !p.isNotice; saveDB(); viewPost(currentPostId); }
+    window.toggleShortcut = function() { const p = db.posts.find(x=>x.id==currentPostId); p.showOnHome = !p.showOnHome; saveDB(); viewPost(currentPostId); }
+    
     window.deletePost = function() { if(confirm('영구 삭제하시겠습니까?')) { db.posts = db.posts.filter(p => p.id != currentPostId); saveDB(); openCategory(currentCatId||db.categories[0].id); } }
 
-    /* 메인 화면 숏컷 렌더링 및 드래그 앤 드롭 */
+    /* 대문 숏컷 필터링 기준 변경 (isNotice -> showOnHome) */
     let draggedNoticeId = null;
     window.onDragStart = function(e, id) { draggedNoticeId = id; e.dataTransfer.effectAllowed = 'move'; setTimeout(() => e.target.style.opacity = '0.5', 0); }
     window.onDragEnd = function(e) { e.target.style.opacity = '1'; draggedNoticeId = null; }
@@ -587,19 +641,30 @@
     window.onDrop = function(e, targetId) { e.preventDefault(); if(!draggedNoticeId || draggedNoticeId == targetId) return; const fromIdx = db.noticeOrder.indexOf(draggedNoticeId), toIdx = db.noticeOrder.indexOf(targetId); if(fromIdx > -1 && toIdx > -1) { db.noticeOrder.splice(fromIdx, 1); db.noticeOrder.splice(toIdx, 0, draggedNoticeId); saveDB(); renderHomeShortcuts(); } }
     
     function renderHomeShortcuts() {
-        const wrap = $('home-shortcuts-wrap'), container = $('home-shortcuts'); let notices = db.posts.filter(p => p.isNotice);
-        if(!db.noticeOrder) db.noticeOrder = []; let noticeIds = notices.map(p => p.id); db.noticeOrder = db.noticeOrder.filter(id => noticeIds.includes(id)); noticeIds.forEach(id => { if(!db.noticeOrder.includes(id)) db.noticeOrder.push(id); });
-        notices.sort((a,b) => db.noticeOrder.indexOf(a.id) - db.noticeOrder.indexOf(b.id));
-        if(!notices.length) { wrap.style.display = 'none'; return; } wrap.style.display = 'block';
-        container.innerHTML = notices.map(p => `<div class="shortcut-card" draggable="true" ondragstart="onDragStart(event, ${p.id})" ondragend="onDragEnd(event)" ondragover="onDragOver(event)" ondrop="onDrop(event, ${p.id})" onclick="viewPost(${p.id})">${p.imgUrl ? `<img src="${p.imgUrl}" class="shortcut-img">` : `<div class="shortcut-img"></div>`}<div class="shortcut-info"><div class="shortcut-cat eng-font">${(db.categories.find(c=>c.id==p.catId)||{}).name||''}</div><div class="shortcut-title">${p.title}</div></div></div>`).join('');
+        const wrap = $('home-shortcuts-wrap'), container = $('home-shortcuts'); 
+        let shortcuts = db.posts.filter(p => p.showOnHome); // 6번: 분리 적용
+        
+        if(!db.noticeOrder) db.noticeOrder = []; 
+        let shortcutIds = shortcuts.map(p => p.id); 
+        db.noticeOrder = db.noticeOrder.filter(id => shortcutIds.includes(id)); 
+        shortcutIds.forEach(id => { if(!db.noticeOrder.includes(id)) db.noticeOrder.push(id); });
+        shortcuts.sort((a,b) => db.noticeOrder.indexOf(a.id) - db.noticeOrder.indexOf(b.id));
+        
+        if(!shortcuts.length) { wrap.style.display = 'none'; return; } wrap.style.display = 'block';
+        container.innerHTML = shortcuts.map(p => `<div class="shortcut-card" draggable="true" ondragstart="onDragStart(event, ${p.id})" ondragend="onDragEnd(event)" ondragover="onDragOver(event)" ondrop="onDrop(event, ${p.id})" onclick="viewPost(${p.id})">${p.imgUrl ? `<img src="${p.imgUrl}" class="shortcut-img">` : `<div class="shortcut-img"></div>`}<div class="shortcut-info"><div class="shortcut-cat eng-font">${(db.categories.find(c=>c.id==p.catId)||{}).name||''}</div><div class="shortcut-title">${p.title}</div></div></div>`).join('');
     }
+
+    // 설정창 - 테마 관리
+    function updateThemeMgmt() { $('s-theme-select').innerHTML = db.themes.map(t => `<option value="${t.id}" ${t.id == db.activeThemeId ? 'selected' : ''}>${t.name}</option>`).join(''); }
+    window.addTheme = function() { const name = $('s-new-theme-name').value.trim(); if(name) { db.themes.push({ id: Date.now(), name, hex: $('s-new-theme-color').value }); saveDB(); updateThemeMgmt(); } }
+    window.editThemeName = function() { const targetId = parseInt($('s-theme-select').value), t = db.themes.find(x => x.id == targetId); if(t) { const n = prompt('새 이름', t.name); if(n) { t.name = n.trim(); saveDB(); updateThemeMgmt(); } } }
+    window.deleteTheme = function() { if(db.themes.length > 1) { db.themes = db.themes.filter(t => t.id != $('s-theme-select').value); saveDB(); updateThemeMgmt(); } else { alert("최소 1개의 테마는 필요합니다."); } }
 
     function updateCatMgmt() { 
         $('s-parent-cat').innerHTML = '<option value="">-- 최상위 --</option>' + buildSelect(null, 0); 
         $('cat-manage-list').innerHTML = buildManageList(null, 0); 
     }
     
-    /* 8번 기능: 카테고리 순서 이동 로직 추가 */
     function buildManageList(parentId = null, level = 0) { 
         return db.categories.filter(c => c.parentId == parentId).map(c => `
             <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px dashed rgba(255,255,255,0.1);">
@@ -639,6 +704,7 @@
     window.saveSettings = function() { 
         if($('s-new-pw').value) db.masterPw = $('s-new-pw').value; 
         db.homeBannerImg = $('s-home-banner-img').value; db.fontUrl = $('s-font-url').value; db.bgmId = $('s-bgm-id').value; 
+        db.activeThemeId = parseInt($('s-theme-select').value); // 테마 반영
         db.introMain = $('s-intro-main').value; db.siteName = $('s-site-name').value; db.homeTitle = $('s-home-title').value; db.homeDesc = $('s-home-desc').value; 
         saveDB(); closeModal('settingModal'); alert('설정이 적용되었습니다.');
     }
