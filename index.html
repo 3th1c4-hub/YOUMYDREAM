@@ -38,7 +38,6 @@
     .sidebar { width:300px; flex-shrink: 0; background:var(--bg-panel); border-right:var(--border-line); padding:40px 25px; display:flex; flex-direction:column; backdrop-filter:blur(15px); overflow-y:auto; z-index:10; transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     .logo { font-size:2rem; color:var(--voyager-gold); text-align:center; cursor:pointer; margin-bottom:25px; text-shadow:var(--voyager-glow); line-height:1.2; }
     
-    /* 카테고리 토글 스타일 */
     .nav-item-wrapper { margin-bottom:2px; }
     .nav-item { padding:8px 15px; cursor:pointer; color:var(--moon-light); font-size:0.95rem; border-radius:4px; display:flex; align-items:center; transition:0.2s;}
     .nav-item:hover { background:rgba(var(--accent-rgb), 0.1); color:var(--voyager-gold); }
@@ -58,16 +57,19 @@
     .page.active { display:block; }
     @keyframes fadeUp { from{opacity:0; transform:translateY(20px);} to{opacity:1;} }
 
-    /* 대문 디자인 */
+    /* 대문 디자인 원상 복구 (1번) */
     .home-container { display:flex; flex-direction:column; align-items:center; }
     .home-hero-img { width: 100%; max-width: 900px; height: 380px; object-fit: cover; border-radius: 4px; border: 1px solid rgba(var(--accent-rgb), 0.3); box-shadow: 0 5px 25px rgba(0,0,0,0.5), 0 0 15px rgba(var(--accent-rgb), 0.2); margin-bottom: 40px; display: none; }
     .home-banner { border: 1px solid rgba(var(--accent-rgb), 0.5); background: rgba(5,6,8,0.9); padding: 40px; text-align: left; border-radius: 4px; width: 100%; max-width: 500px; box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.15); display: flex; flex-direction: column; position: relative; }
     .home-banner::before { content: ''; position: absolute; top: -2px; left: -2px; width: 20px; height: 20px; border-top: 3px solid var(--voyager-gold); border-left: 3px solid var(--voyager-gold); }
     .home-banner::after { content: ''; position: absolute; bottom: -2px; right: -2px; width: 20px; height: 20px; border-bottom: 3px solid var(--voyager-gold); border-right: 3px solid var(--voyager-gold); }
     #home-maintitle { font-size: 2.2rem; color: #fff; margin-bottom: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; z-index: 2; }
+    .home-subtitle-wrap { border-bottom: 1px solid rgba(var(--accent-rgb), 0.3); padding-bottom: 15px; margin-bottom: 25px; z-index: 2; }
+    .home-tech-subtitle { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--voyager-gold); letter-spacing: 3px; text-transform: uppercase; }
     #home-desc-display { font-size: 0.95rem; color: var(--moon-light); line-height: 1.8; white-space: pre-wrap; z-index: 2; padding-left: 15px; border-left: 3px solid rgba(var(--accent-rgb), 0.6); }
+    .home-banner-footer { margin-top: 30px; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--moon-dim); display: flex; justify-content: space-between; border-top: 1px solid rgba(132, 146, 166, 0.2); padding-top: 10px; }
 
-    /* 대문 숏컷 (가로 정렬 수정) */
+    /* 대문 숏컷 카드 */
     .home-shortcuts-wrap { margin-top: 60px; width: 100%; border-top: 1px solid rgba(132,146,166,0.2); padding-top: 40px; display:none; }
     .home-shortcuts-title { font-size: 1.1rem; color: var(--voyager-gold); margin-bottom: 25px; text-align: center; font-weight: 600; letter-spacing: 2px; }
     .home-shortcuts { display: flex; flex-direction: row; gap: 20px; justify-content: center; flex-wrap: wrap; }
@@ -75,8 +77,11 @@
     .shortcut-card:hover { transform: translateY(-5px); border-color: var(--voyager-gold); box-shadow: var(--voyager-glow); }
     .shortcut-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; pointer-events: none;}
     .shortcut-card:hover .shortcut-img { opacity: 1; transform: scale(1.05); }
-    .shortcut-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px 15px 15px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); pointer-events: none; }
-    .shortcut-title { color: #fff; font-size: 1.05rem; font-weight: 600; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .shortcut-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px 15px 15px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); pointer-events: none; display: flex; flex-direction: column; align-items: flex-start; }
+    
+    /* 카드 카테고리/제목 디자인 분리 (3번) */
+    .shortcut-cat { font-family: 'Pretendard', sans-serif !important; color: #fff; background: rgba(var(--accent-rgb), 0.7); padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px; text-shadow: none; }
+    .shortcut-title { color: #fff; font-size: 1.1rem; font-weight: 700; line-height: 1.3; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: normal; }
 
     /* 리스트 UI */
     .view-toggles { display: flex; gap: 5px; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 4px; border: var(--border-line); }
@@ -90,9 +95,7 @@
     .post-card:hover { border-color:var(--voyager-gold); transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.5); background:rgba(20,22,28,0.8); }
     .post-card.notice { border-color:var(--voyager-gold); background:rgba(var(--accent-rgb),0.05); }
     
-    /* 메인 트랙 배지 길이 오류 수정 (fit-content) */
     .notice-badge { font-size:0.75rem; color:var(--bg-deep); background:var(--voyager-gold); padding:2px 8px; border-radius:2px; font-weight:600; display:inline-block; margin-bottom:6px; width: fit-content; }
-    
     .post-thumb { object-fit:cover; border:1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.4); }
 
     .view-list .post-card { padding:20px 25px; display:flex; align-items:center; gap:20px; }
@@ -103,7 +106,7 @@
     .view-gallery .post-thumb { width:100%; height:160px; border-radius:6px 6px 0 0; border:none; border-bottom:1px solid rgba(255,255,255,0.05); }
     .view-gallery .post-info-wrap { padding:15px; flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; }
 
-    /* 리치 텍스트 에디터 툴바 */
+    /* 에디터 툴바 */
     .editor-toolbar { display:flex; gap:6px; background:rgba(0,0,0,0.5); padding:10px; border:var(--border-line); border-bottom:none; border-radius:4px 4px 0 0; flex-wrap:wrap; align-items:center; }
     .editor-toolbar button { background:transparent; border:1px solid rgba(255,255,255,0.1); color:var(--moon-light); padding:6px 12px; cursor:pointer; border-radius:2px; font-size:0.85rem; transition:0.2s; font-family:'Pretendard', sans-serif;}
     .editor-toolbar button:hover { background:rgba(var(--accent-rgb),0.2); color:var(--voyager-gold); border-color:var(--voyager-gold); }
@@ -116,7 +119,6 @@
     #w-content { border-radius:0 0 4px 4px; min-height:400px; height:auto; padding:30px; background:rgba(0,0,0,0.3); border:var(--border-line); color:#fff; outline:none; overflow-y:auto; line-height:1.8; font-size:1.05rem; }
     #w-content:focus { border-color:var(--voyager-gold); background:rgba(0,0,0,0.5); }
     
-    /* 📝 노션 템플릿 스타일 & 페이지-인-페이지 링크 스타일 */
     .notion-tpl-page { padding: 10px 0; max-width: 100%; }
     .notion-h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 15px; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
     .notion-h2 { font-size: 1.5rem; font-weight: 600; margin-top: 30px; margin-bottom: 10px; color: var(--voyager-gold); }
@@ -147,6 +149,10 @@
 
     .modal-bg { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:none; justify-content:center; align-items:center; z-index:10000; backdrop-filter:blur(5px); }
     .modal { background:var(--bg-panel); padding:40px; border-radius:8px; width:650px; border:var(--border-gold); max-height:90vh; display:flex; flex-direction:column;}
+    
+    /* 설정 모달 라벨 스타일 수정 (겹침 방지) */
+    .modal-label { color:var(--voyager-gold); font-size:0.9rem; font-weight:600; display:block; margin-bottom:8px; margin-top:20px; }
+    .modal-label:first-child { margin-top: 0; }
     
     ::-webkit-scrollbar { width:6px; }
     ::-webkit-scrollbar-track { background:transparent; }
@@ -190,8 +196,19 @@
             <div class="home-container">
                 <img id="home-banner-img" class="home-hero-img" src="">
                 <div class="home-banner">
+                    <div style="margin-bottom:15px; font-size: 0.7rem; color: var(--moon-dim); text-transform:uppercase; letter-spacing: 1.5px; font-weight:700; display:flex; align-items:center; gap:8px;">
+                        <span style="width:8px; height:8px; background:var(--voyager-gold); border-radius:2px; box-shadow: 0 0 5px var(--voyager-gold);"></span>
+                        System Status :: Active
+                    </div>
                     <h1 class="eng-font" id="home-maintitle">Voyager Record</h1>
-                    <p id="home-desc-display" style="margin-top:15px;"></p>
+                    <div class="home-subtitle-wrap">
+                        <div class="home-tech-subtitle eng-font">Deep Space Archive</div>
+                    </div>
+                    <p id="home-desc-display"></p>
+                    <div class="home-banner-footer">
+                        <span>STDRD_DAT_V8.0</span>
+                        <span>ENC_MODE_AES256</span>
+                    </div>
                 </div>
                 <div id="home-shortcuts-wrap" class="home-shortcuts-wrap">
                     <div class="home-shortcuts-title eng-font">MAIN TRACKS <span style="font-size:0.7rem; color:var(--moon-dim); font-family:'Pretendard'; font-weight:normal;">(Drag to Reorder)</span></div>
@@ -319,27 +336,31 @@
 <div id="settingModal" class="modal-bg">
     <div class="modal">
         <h3 class="eng-font" style="color:var(--voyager-gold); margin-bottom:20px; border-bottom:1px dashed rgba(255,255,255,0.1); padding-bottom:15px;">SYSTEM SETTINGS</h3>
-        <div style="overflow-y:auto; flex:1; padding-right:10px;">
-            <label>★ 대문 배너 이미지</label><input type="text" id="s-home-banner-img" class="input-control">
-            <label>★ 아르테미스 폰트 URL</label><input type="text" id="s-font-url" class="input-control">
+        <div style="overflow-y:auto; flex:1; padding-right:15px;">
+            <label class="modal-label">★ 대문 배너 이미지</label>
+            <input type="text" id="s-home-banner-img" class="input-control">
             
-            <label>1. 테마 컬러 관리</label>
-            <div style="display:flex; gap:10px; margin-bottom:10px;"><select id="s-theme-select" class="input-control" style="flex:1;"></select><button class="btn" onclick="editThemeName()">수정</button><button class="btn" style="color:#d9534f;" onclick="deleteTheme()">삭제</button></div>
-            <div style="display:flex; gap:10px; align-items:center; background:rgba(0,0,0,0.3); padding:10px; border-radius:4px; margin-bottom:25px;"><input type="color" id="s-new-theme-color"><input type="text" id="s-new-theme-name" class="input-control" style="flex:1; margin-bottom:0;"><button class="btn btn-solid" onclick="addTheme()">추가</button></div>
+            <label class="modal-label">★ 아르테미스 폰트 URL</label>
+            <input type="text" id="s-font-url" class="input-control">
+            
+            <label class="modal-label">1. 테마 컬러 관리</label>
+            <div style="display:flex; gap:10px; margin-bottom:10px;"><select id="s-theme-select" class="input-control" style="flex:1; margin-bottom:0;"></select><button class="btn" onclick="editThemeName()">수정</button><button class="btn" style="color:#d9534f;" onclick="deleteTheme()">삭제</button></div>
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(0,0,0,0.3); padding:10px; border-radius:4px;"><input type="color" id="s-new-theme-color" style="cursor:pointer;"><input type="text" id="s-new-theme-name" class="input-control" style="flex:1; margin-bottom:0;" placeholder="새 테마 이름"><button class="btn btn-solid" onclick="addTheme()">추가</button></div>
 
-            <label>2. 사이드바 BGM 유튜브 ID</label><input type="text" id="s-bgm-id" class="input-control" style="margin-bottom:25px;">
+            <label class="modal-label">2. 사이드바 BGM 유튜브 ID</label>
+            <input type="text" id="s-bgm-id" class="input-control">
             
-            <label>3. 시스템 정보</label>
+            <label class="modal-label">3. 시스템 정보</label>
             <input type="password" id="s-new-pw" class="input-control" placeholder="새 마스터 비밀번호">
             <input type="text" id="s-intro-main" class="input-control" placeholder="인트로 문구">
-            <div style="display:flex; gap:10px;"><input type="text" id="s-site-name" class="input-control" placeholder="로고명"><input type="text" id="s-home-title" class="input-control" placeholder="대문제목"></div>
-            <textarea id="s-home-desc" class="input-control" style="height:60px; margin-bottom:25px;" placeholder="사이트 설명"></textarea>
+            <div style="display:flex; gap:10px;"><input type="text" id="s-site-name" class="input-control" style="margin-bottom:0;" placeholder="로고명"><input type="text" id="s-home-title" class="input-control" style="margin-bottom:0;" placeholder="대문제목"></div>
+            <textarea id="s-home-desc" class="input-control" style="height:80px; margin-top:15px;" placeholder="사이트 설명"></textarea>
             
-            <label>4. 카테고리 관리</label>
-            <div style="display:flex; gap:10px; margin-bottom:15px;"><select id="s-parent-cat" class="input-control" style="flex:1;"></select><input type="text" id="s-new-cat" class="input-control" style="flex:2;" placeholder="새 이름"><button class="btn btn-solid" onclick="addCategory()">추가</button></div>
+            <label class="modal-label">4. 카테고리 관리</label>
+            <div style="display:flex; gap:10px; margin-bottom:15px;"><select id="s-parent-cat" class="input-control" style="flex:1; margin-bottom:0;"></select><input type="text" id="s-new-cat" class="input-control" style="flex:2; margin-bottom:0;" placeholder="새 이름"><button class="btn btn-solid" onclick="addCategory()">추가</button></div>
             <div id="cat-manage-list" style="background:rgba(0,0,0,0.3); border:var(--border-line); border-radius:4px; padding:15px;"></div>
         </div>
-        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:20px;"><button class="btn btn-solid" onclick="saveSettings()">설정 저장</button><button class="btn" onclick="closeModal('settingModal')">닫기</button></div>
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:20px; border-top:1px dashed rgba(255,255,255,0.1); padding-top:20px;"><button class="btn btn-solid" onclick="saveSettings()">설정 저장</button><button class="btn" onclick="closeModal('settingModal')">닫기</button></div>
     </div>
 </div>
 
@@ -381,7 +402,7 @@
                 db = { ...defaultDb, ...data };
                 if(data.categories) db.categories = Object.values(data.categories);
                 if(data.posts) db.posts = Object.values(data.posts);
-                if(data.themes) db.themes = Object.values(data.themes); // 테마 복구
+                if(data.themes) db.themes = Object.values(data.themes); 
                 if(data.noticeOrder) db.noticeOrder = Object.values(data.noticeOrder);
             }
             if (!isFirstLoad) { db.categories.filter(c => c.parentId == null).forEach(c => expandedCats.add(c.id)); isFirstLoad = true; }
@@ -393,7 +414,6 @@
     function saveDB() { database.ref('voyagerArchive').set(db); }
 
     function applyUI() {
-        // 테마 컬러 적용 로직
         let currentTheme = db.themes.find(t => t.id === db.activeThemeId) || db.themes[0];
         document.documentElement.style.setProperty('--accent-rgb', hexToRgb(currentTheme.hex));
 
@@ -428,7 +448,6 @@
     function saveSelection() { const sel = window.getSelection(); if(sel.getRangeAt && sel.rangeCount) savedRange = sel.getRangeAt(0); }
     function restoreSelection() { if(savedRange) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(savedRange); } }
 
-    /* 카테고리 토글(▶) 기능 부활 (2번) */
     window.toggleCat = function(e, id) { 
         e.stopPropagation(); 
         expandedCats.has(id) ? expandedCats.delete(id) : expandedCats.add(id); 
@@ -593,7 +612,7 @@
         const postData = { 
             id: editingPostId || Date.now(), catId, title, author, imgUrl: $('w-img-url').value, 
             content: $('w-content').innerHTML, date: new Date().toLocaleDateString(), 
-            isNotice: false, showOnHome: false, // 6번: 초기값 세팅
+            isNotice: false, showOnHome: false,
             postPw: $('w-post-pw').value.trim() 
         };
         if(editingPostId) { 
@@ -617,7 +636,6 @@
         $('v-title').innerText = p.title; $('v-info').innerHTML = `${c?c.name:''} | ${p.author ? '<b>'+p.author+'</b> | ' : ''}${p.date}`; 
         $('v-content').innerHTML = p.content; if(p.imgUrl) { $('v-image').src = p.imgUrl; $('v-image').style.display = 'block'; } else $('v-image').style.display = 'none';
         
-        // 6번: 메인 트랙, 대문 등록 버튼 상태 업데이트
         if(isAuthed) { 
             $('btn-notice').innerText = p.isNotice ? "☆ 메인 해제" : "★ 메인 트랙 지정"; 
             $('btn-notice').style.color = p.isNotice ? "var(--moon-dim)" : "var(--voyager-gold)";
@@ -627,13 +645,11 @@
         goPage('view');
     }
 
-    // 6번: 토글 기능 분리
     window.toggleNotice = function() { const p = db.posts.find(x=>x.id==currentPostId); p.isNotice = !p.isNotice; saveDB(); viewPost(currentPostId); }
     window.toggleShortcut = function() { const p = db.posts.find(x=>x.id==currentPostId); p.showOnHome = !p.showOnHome; saveDB(); viewPost(currentPostId); }
     
     window.deletePost = function() { if(confirm('영구 삭제하시겠습니까?')) { db.posts = db.posts.filter(p => p.id != currentPostId); saveDB(); openCategory(currentCatId||db.categories[0].id); } }
 
-    /* 대문 숏컷 필터링 기준 변경 (isNotice -> showOnHome) */
     let draggedNoticeId = null;
     window.onDragStart = function(e, id) { draggedNoticeId = id; e.dataTransfer.effectAllowed = 'move'; setTimeout(() => e.target.style.opacity = '0.5', 0); }
     window.onDragEnd = function(e) { e.target.style.opacity = '1'; draggedNoticeId = null; }
@@ -642,7 +658,7 @@
     
     function renderHomeShortcuts() {
         const wrap = $('home-shortcuts-wrap'), container = $('home-shortcuts'); 
-        let shortcuts = db.posts.filter(p => p.showOnHome); // 6번: 분리 적용
+        let shortcuts = db.posts.filter(p => p.showOnHome);
         
         if(!db.noticeOrder) db.noticeOrder = []; 
         let shortcutIds = shortcuts.map(p => p.id); 
@@ -651,10 +667,18 @@
         shortcuts.sort((a,b) => db.noticeOrder.indexOf(a.id) - db.noticeOrder.indexOf(b.id));
         
         if(!shortcuts.length) { wrap.style.display = 'none'; return; } wrap.style.display = 'block';
-        container.innerHTML = shortcuts.map(p => `<div class="shortcut-card" draggable="true" ondragstart="onDragStart(event, ${p.id})" ondragend="onDragEnd(event)" ondragover="onDragOver(event)" ondrop="onDrop(event, ${p.id})" onclick="viewPost(${p.id})">${p.imgUrl ? `<img src="${p.imgUrl}" class="shortcut-img">` : `<div class="shortcut-img"></div>`}<div class="shortcut-info"><div class="shortcut-cat eng-font">${(db.categories.find(c=>c.id==p.catId)||{}).name||''}</div><div class="shortcut-title">${p.title}</div></div></div>`).join('');
+        
+        // 3번: 카테고리 텍스트 분리 렌더링
+        container.innerHTML = shortcuts.map(p => `
+            <div class="shortcut-card" draggable="true" ondragstart="onDragStart(event, ${p.id})" ondragend="onDragEnd(event)" ondragover="onDragOver(event)" ondrop="onDrop(event, ${p.id})" onclick="viewPost(${p.id})">
+                ${p.imgUrl ? `<img src="${p.imgUrl}" class="shortcut-img">` : `<div class="shortcut-img"></div>`}
+                <div class="shortcut-info">
+                    <div class="shortcut-cat">${(db.categories.find(c=>c.id==p.catId)||{}).name||''}</div>
+                    <div class="shortcut-title">${p.title}</div>
+                </div>
+            </div>`).join('');
     }
 
-    // 설정창 - 테마 관리
     function updateThemeMgmt() { $('s-theme-select').innerHTML = db.themes.map(t => `<option value="${t.id}" ${t.id == db.activeThemeId ? 'selected' : ''}>${t.name}</option>`).join(''); }
     window.addTheme = function() { const name = $('s-new-theme-name').value.trim(); if(name) { db.themes.push({ id: Date.now(), name, hex: $('s-new-theme-color').value }); saveDB(); updateThemeMgmt(); } }
     window.editThemeName = function() { const targetId = parseInt($('s-theme-select').value), t = db.themes.find(x => x.id == targetId); if(t) { const n = prompt('새 이름', t.name); if(n) { t.name = n.trim(); saveDB(); updateThemeMgmt(); } } }
@@ -704,7 +728,7 @@
     window.saveSettings = function() { 
         if($('s-new-pw').value) db.masterPw = $('s-new-pw').value; 
         db.homeBannerImg = $('s-home-banner-img').value; db.fontUrl = $('s-font-url').value; db.bgmId = $('s-bgm-id').value; 
-        db.activeThemeId = parseInt($('s-theme-select').value); // 테마 반영
+        db.activeThemeId = parseInt($('s-theme-select').value); 
         db.introMain = $('s-intro-main').value; db.siteName = $('s-site-name').value; db.homeTitle = $('s-home-title').value; db.homeDesc = $('s-home-desc').value; 
         saveDB(); closeModal('settingModal'); alert('설정이 적용되었습니다.');
     }
