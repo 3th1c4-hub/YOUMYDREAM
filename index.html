@@ -324,7 +324,7 @@
                 <h2 id="v-title" style="font-size:2.2rem; margin-bottom:15px; color:#fff;"></h2>
                 <div id="v-info" class="eng-font" style="color:var(--moon-dim); font-size:0.95rem;"></div>
             </div>
-            <img id="v-image" style="max-width:100%; border-radius:6px; margin:0 auto 40px auto; display:block; border:var(--border-line);">
+            
             <div id="v-content" style="line-height:2; font-size:1.1rem; color:var(--moon-light);"></div>
         </div>
     </div>
@@ -356,6 +356,16 @@
         <div id="t-rows-wrap" style="margin-bottom:15px; display:flex; justify-content:space-between;"><label>행(Row)</label><input type="number" id="t-rows" class="input-control" style="width:100px;" value="3"></div>
         <div id="t-cols-wrap" style="margin-bottom:15px; display:flex; justify-content:space-between;"><label>열(Column)</label><input type="number" id="t-cols" class="input-control" style="width:100px;" value="3"></div>
         <div style="margin-bottom:15px; display:flex; justify-content:space-between;"><label>너비(%)</label><input type="number" id="t-width" class="input-control" style="width:100px;" value="100"></div>
+        
+        <div style="margin-bottom:15px; display:flex; justify-content:space-between;">
+            <label>정렬</label>
+            <select id="t-align" class="input-control" style="width:100px; padding:8px; margin-bottom:0;">
+                <option value="center">중앙</option>
+                <option value="left">좌측</option>
+                <option value="right">우측</option>
+            </select>
+        </div>
+
         <div style="margin-bottom:25px; display:flex; justify-content:space-between;"><label>배경색</label><div><input type="color" id="t-bg" value="#000000"><input type="checkbox" id="t-bg-transparent" checked>투명</div></div>
         <div style="display:flex; gap:10px; justify-content:flex-end;">
             <button class="btn btn-solid" onclick="applyTable()">적용</button>
@@ -683,10 +693,10 @@
         formatDoc('insertHTML', notionHtml);
     }
 
-    // 📌 오류 수정: 표 입력 시 커서 잃어버리는 현상 해결
     let currentEditingTable = null;
+    
     window.openTableModal = function() {
-        saveSelection(); // 모달 창을 띄우기 전에 현재 에디터의 커서 위치를 기억해둠
+        saveSelection(); 
         let node = savedRange ? savedRange.startContainer : null;
         
         while(node && node.nodeName !== 'TABLE' && node.id !== 'w-content') { node = node.parentNode; }
@@ -695,24 +705,39 @@
             $('t-rows-wrap').style.display = 'none'; 
             $('t-cols-wrap').style.display = 'none';
             $('t-width').value = node.style.width.replace('%','') || '100'; 
+            
+            let ml = node.style.marginLeft, mr = node.style.marginRight;
+            if(ml === 'auto' && mr === 'auto') $('t-align').value = 'center';
+            else if(ml === 'auto' && mr !== 'auto') $('t-align').value = 'right';
+            else $('t-align').value = 'left';
+
             openModal('tableModal');
         } else { 
             currentEditingTable = null; 
             $('t-rows-wrap').style.display = 'flex'; 
             $('t-cols-wrap').style.display = 'flex'; 
+            $('t-align').value = 'center'; 
             openModal('tableModal'); 
         }
     }
     
     window.applyTable = function() {
-        const w = $('t-width').value + '%', bg = $('t-bg-transparent').checked ? 'transparent' : $('t-bg').value;
+        const w = $('t-width').value + '%';
+        const bg = $('t-bg-transparent').checked ? 'transparent' : $('t-bg').value;
+        const align = $('t-align').value;
+        
+        let ml = '0', mr = 'auto';
+        if(align === 'center') { ml = 'auto'; mr = 'auto'; }
+        else if(align === 'right') { ml = 'auto'; mr = '0'; }
         
         if(currentEditingTable) { 
             currentEditingTable.style.width = w; 
             currentEditingTable.style.backgroundColor = bg; 
+            currentEditingTable.style.marginLeft = ml;
+            currentEditingTable.style.marginRight = mr;
         } else {
-            restoreSelection(); // 기억해둔 커서 위치를 복구한 후 표를 삽입
-            let html = `<br><table class="rich-table" style="width:${w}; background-color:${bg};"><tbody>`;
+            restoreSelection(); 
+            let html = `<br><table class="rich-table" style="width:${w}; background-color:${bg}; margin-left:${ml}; margin-right:${mr};"><tbody>`;
             for(let i=0; i<$('t-rows').value; i++) { html += '<tr>'; for(let j=0; j<$('t-cols').value; j++) html += '<td>-</td>'; html += '</tr>'; }
             html += '</tbody></table><br>'; 
             formatDoc('insertHTML', html);
@@ -793,7 +818,7 @@
 
         currentPostId = id; const c = db.categories.find(x => x.id == p.catId);
         $('v-title').innerText = p.title; $('v-info').innerHTML = `${c?c.name:''} | ${p.author ? '<b>'+p.author+'</b> | ' : ''}${p.date}`; 
-        $('v-content').innerHTML = p.content; if(p.imgUrl) { $('v-image').src = p.imgUrl; $('v-image').style.display = 'block'; } else $('v-image').style.display = 'none';
+        $('v-content').innerHTML = p.content; 
         
         if(isAuthed) { 
             $('btn-notice').innerText = p.isNotice ? "☆ 메인 해제" : "★ 메인 트랙 지정"; 
