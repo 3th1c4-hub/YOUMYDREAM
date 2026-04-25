@@ -25,7 +25,6 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
-    /* 배경 그라데이션을 사용자 배경색에 맞춰 자연스럽게 블렌딩되도록 수정 */
     body { 
         font-family: 'Pretendard', sans-serif; 
         background-color: var(--bg-deep); 
@@ -325,7 +324,10 @@
 
         <div id="page-view" class="page">
             <div style="display:flex; justify-content:space-between; margin-bottom:30px;">
-                <button class="btn" onclick="goPage('board')">← 목록으로</button>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn" onclick="goPage('board')">← 목록으로</button>
+                    <button class="btn" style="border-color:#4da6ff; color:#4da6ff;" onclick="copyPostLink()">🔗 주소 복사</button>
+                </div>
                 <div id="admin-actions" style="display:none;">
                     <button class="btn" id="btn-notice" style="margin-right:5px;" onclick="toggleNotice()">★ 메인 트랙</button>
                     <button class="btn" id="btn-shortcut" style="margin-right:5px;" onclick="toggleShortcut()">📌 대문 등록</button>
@@ -453,7 +455,6 @@
     const $ = id => document.getElementById(id);
     function hexToRgb(hex) { let r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16); return `${r}, ${g}, ${b}`; }
 
-    // 기본 DB에 테마의 배경색(bgHex)과 텍스트색(textHex) 속성이 추가되었습니다.
     const defaultDb = {
         masterPw: "1234", viewMode: "list", bgmId: "", activeThemeId: 1,
         homeBannerImg: "", fontUrl: "", 
@@ -482,8 +483,20 @@
             if (!isFirstLoad) { 
                 db.categories.filter(c => c.parentId == null).forEach(c => expandedCats.add(c.id)); 
                 isFirstLoad = true; 
-                let introText = db.introMain || "ACCESS TERMINAL";
-                typeIntroText(introText);
+                
+                // 🌟 링크를 타고 들어왔을 때 고유 주소 파싱
+                const urlParams = new URLSearchParams(window.location.search);
+                const sharedPostId = urlParams.get('post');
+                
+                if (sharedPostId) {
+                    // 공유 링크로 들어왔다면 인트로 화면을 스킵하고 바로 게시글을 띄움
+                    $('intro-screen').style.display = 'none';
+                    $('app').style.display = 'flex';
+                    setTimeout(() => viewPost(parseInt(sharedPostId)), 100);
+                } else {
+                    let introText = db.introMain || "ACCESS TERMINAL";
+                    typeIntroText(introText);
+                }
             }
             applyUI(); renderNav();
             if($('settingModal').style.display === 'flex') { updateCatMgmt(); updateThemeMgmt(); }
@@ -512,7 +525,6 @@
     function applyUI() {
         let currentTheme = db.themes.find(t => t.id === db.activeThemeId) || db.themes[0];
         
-        // 포인트, 배경, 텍스트 컬러 적용 (과거 테마 데이터 호환성을 위해 기본값 설정)
         document.documentElement.style.setProperty('--accent-rgb', hexToRgb(currentTheme.hex || '#c8b48e'));
         document.documentElement.style.setProperty('--bg-deep', currentTheme.bgHex || '#161a20');
         document.documentElement.style.setProperty('--moon-light', currentTheme.textHex || '#e2e8f0');
@@ -557,7 +569,20 @@
     }
 
     window.enterSite = function() { $('intro-screen').style.opacity = '0'; setTimeout(() => { $('intro-screen').style.display = 'none'; $('app').style.display = 'flex'; goPage('home'); }, 1000); }
-    window.goPage = function(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); $('page-' + id).classList.add('active'); renderNav(); if(id==='home') renderHomeShortcuts(); }
+    
+    // 🌟 페이지 이동 시 URL 파라미터 초기화
+    window.goPage = function(id) { 
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
+        $('page-' + id).classList.add('active'); 
+        renderNav(); 
+        if(id==='home') renderHomeShortcuts(); 
+        
+        // 글 읽기 화면이 아니라면 주소창을 원래대로 복구
+        if(id !== 'view') {
+            history.pushState(null, '', window.location.pathname);
+        }
+    }
+    
     window.openModal = function(id) { $(id).style.display = 'flex'; }
     window.closeModal = function(id) { $(id).style.display = 'none'; }
     
@@ -729,8 +754,6 @@
         formatDoc('insertHTML', notionHtml);
     }
 
-    // --- 표 셀 병합 관련 함수 추가 ---
-
     window.mergeCellRight = function() {
         let sel = window.getSelection();
         if(!sel.rangeCount) return;
@@ -749,7 +772,6 @@
         
         node.setAttribute('colspan', currentColSpan + nextColSpan);
         
-        // 병합될 셀의 내용이 빈칸이나 하이픈(-)이 아니라면 합쳐줌
         if(next.innerHTML.trim() !== '' && next.innerHTML !== '-') {
             let content = next.innerHTML;
             if(node.innerHTML === '-') node.innerHTML = content;
@@ -774,19 +796,17 @@
         let rowIndex = rows.indexOf(tr);
         
         let currentRowSpan = parseInt(node.getAttribute('rowspan') || 1);
-        let targetRowIndex = rowIndex + currentRowSpan; // 이미 세로병합된 셀을 건너뛰고 바로 아래행 찾기
+        let targetRowIndex = rowIndex + currentRowSpan; 
         
         if(targetRowIndex >= rows.length) return alert("아래에 병합할 행이 없습니다.");
         let nextRow = rows[targetRowIndex];
         
-        // 현재 셀이 행 안에서 차지하는 시각적 위치(Index) 계산
         let vIndex = 0;
         for(let c of tr.children) {
             if(c === node) break;
             vIndex += parseInt(c.getAttribute('colspan') || 1);
         }
         
-        // 바로 아랫줄에서 같은 시각적 위치에 있는 셀 찾기
         let nextCell = null;
         let currV = 0;
         for(let c of nextRow.children) {
@@ -806,8 +826,6 @@
         }
         nextCell.remove();
     }
-
-    // --- 표 삽입/수정 ---
 
     let currentEditingTable = null;
     
@@ -942,7 +960,21 @@
             $('btn-shortcut').innerText = p.showOnHome ? "📌 대문 내리기" : "📌 대문 등록"; 
             $('btn-shortcut').style.color = p.showOnHome ? "var(--moon-dim)" : "var(--voyager-gold)";
         }
+        
+        // 🌟 게시글 열람 시 URL에 파라미터 추가
+        history.pushState(null, '', '?post=' + id);
+        
         goPage('view');
+    }
+
+    // 🌟 게시글 고유 링크 복사 기능
+    window.copyPostLink = function() {
+        const url = window.location.origin + window.location.pathname + '?post=' + currentPostId;
+        navigator.clipboard.writeText(url).then(() => {
+            alert('게시글 고유 주소가 클립보드에 복사되었습니다.\n원하는 곳에 붙여넣기 하세요!');
+        }).catch(err => {
+            prompt('복사 권한이 없습니다. 아래 주소를 직접 복사해주세요:', url);
+        });
     }
 
     window.toggleNotice = function() { const p = db.posts.find(x=>x.id==currentPostId); p.isNotice = !p.isNotice; saveDB(); viewPost(currentPostId); }
